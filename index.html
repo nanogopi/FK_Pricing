@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FK - Price Compute</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="3D%20Print%20Price%20Calculator_files/css2_GUPu.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#F1EDE2;
@@ -27,30 +27,10 @@
     line-height:1.45;
     -webkit-font-smoothing:antialiased;
   }
-  .band{
-    background:#000;
-    padding:28px 18px;
-  }
-  .band .inner{
-    width:100%;
-    max-width:900px;
-    margin:0 auto;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-  }
-  .band a{
-    display:inline-block;
-    line-height:0;
-    width:100%;
-    text-align:center;
-  }
-  .band img{
-    width:420px;
-    max-width:80%;
-    height:auto;
-    display:inline-block;
-  }
+  .band{background:#000;padding:22px 18px}
+  .band .inner{max-width:460px;margin:0 auto}
+  .band a{display:inline-block;line-height:0}
+  .band img{width:190px;height:auto;display:block}
   .band a:focus-visible{outline:3px solid var(--yellow);outline-offset:6px}
 
   .wrap{max-width:460px;margin:0 auto;padding:26px 18px 56px}
@@ -148,148 +128,152 @@
 </div>
 
 <div class="wrap">
-  <div class="lead"></div>
 
   <div class="row">
     <div class="field">
-      <label for="materialCost">Material Cost <span class="hint">(per kg)</span></label>
-      <input type="number" id="materialCost" value="850">
+      <label for="g">Weight <span class="hint">(grams)</span></label>
+      <input id="g" type="number" inputmode="decimal" min="0" step="1" value="50">
     </div>
     <div class="field">
-      <label for="powerCost">Power Cost <span class="hint">(per kWh)</span></label>
-      <input type="number" id="powerCost" value="9">
+      <label for="h">Print time <span class="hint">(hours)</span></label>
+      <input id="h" type="number" inputmode="decimal" min="0" step="0.5" value="4">
     </div>
   </div>
-
+  <div class="field">
+    <label for="f">Filament cost <span class="hint">(₹ per kg)</span></label>
+    <input id="f" type="number" inputmode="decimal" min="0" step="50" value="1000">
+  </div>
   <div class="row">
     <div class="field">
-      <label for="printTime">Print Time <span class="hint">(hours)</span></label>
-      <input type="number" id="printTime" value="2.5" step="0.1">
+      <label for="p">Packaging <span class="hint">(₹ per piece)</span></label>
+      <input id="p" type="number" inputmode="decimal" min="0" step="5" value="20">
     </div>
     <div class="field">
-      <label for="filamentUsed">Filament Used <span class="hint">(grams)</span></label>
-      <input type="number" id="filamentUsed" value="45">
+      <label for="m">Finishing <span class="hint">(minutes)</span></label>
+      <input id="m" type="number" inputmode="decimal" min="0" step="1" value="5">
     </div>
   </div>
 
   <details>
-    <summary>Advanced Settings</summary>
+    <summary>Printer and electricity settings</summary>
     <div class="row">
       <div class="field">
-        <label for="machineCost">Machine Cost</label>
-        <input type="number" id="machineCost" value="40000">
+        <label for="pc">Printer price <span class="hint">(₹)</span></label>
+        <input id="pc" type="number" inputmode="decimal" min="0" step="500" value="25000">
       </div>
       <div class="field">
-        <label for="lifespanHours">Lifespan <span class="hint">(hours)</span></label>
-        <input type="number" id="lifespanHours" value="3000">
+        <label for="pl">Printer lifespan <span class="hint">(hours)</span></label>
+        <input id="pl" type="number" inputmode="decimal" min="1" step="100" value="5000">
       </div>
     </div>
     <div class="row">
       <div class="field">
-        <label for="powerConsumption">Power Usage <span class="hint">(Watts)</span></label>
-        <input type="number" id="powerConsumption" value="200">
+        <label for="w">Printer power <span class="hint">(watts)</span></label>
+        <input id="w" type="number" inputmode="decimal" min="0" step="10" value="100">
       </div>
       <div class="field">
-        <label for="laborCost">Labor Rate <span class="hint">(per hour)</span></label>
-        <input type="number" id="laborCost" value="150">
+        <label for="u">Electricity rate <span class="hint">(₹ per unit)</span></label>
+        <input id="u" type="number" inputmode="decimal" min="0" step="0.5" value="8">
       </div>
     </div>
     <div class="row">
       <div class="field">
-        <label for="laborTime">Labor Time <span class="hint">(mins)</span></label>
-        <input type="number" id="laborTime" value="15">
+        <label for="fl">Failure buffer <span class="hint">(%)</span></label>
+        <input id="fl" type="number" inputmode="decimal" min="0" max="100" step="1" value="10">
       </div>
       <div class="field">
-        <label for="failureRate">Failure Rate <span class="hint">(%)</span></label>
-        <input type="number" id="failureRate" value="10">
+        <label for="lr">Your time <span class="hint">(₹ per hour)</span></label>
+        <input id="lr" type="number" inputmode="decimal" min="0" step="50" value="200">
       </div>
     </div>
   </details>
 
   <div class="result">
-    <div class="tag">BASE COST</div>
-    <div class="price">₹<span id="baseCost">0</span></div>
+    <div class="tag">Sell directly to customers at</div>
+    <div class="price" id="bigPrice">₹359</div>
+    <div class="sub">Real cost <b id="bigCost">₹117</b> — profit <b id="bigProfit">₹242</b> per piece</div>
   </div>
 
   <div class="receipt">
-    <h2>Cost Breakdown</h2>
-    <div class="line"><span>Material (w/ fail rate):</span> <span id="outMaterial">₹0.00</span></div>
-    <div class="line"><span>Machine Wear:</span> <span id="outWear">₹0.00</span></div>
-    <div class="line"><span>Power:</span> <span id="outPower">₹0.00</span></div>
-    <div class="line"><span>Labor:</span> <span id="outLabor">₹0.00</span></div>
-    <div class="total"><span>Base Cost:</span> <span id="outBase">₹0.00</span></div>
+    <h2>Where the real cost comes from</h2>
+    <div class="line"><span>Plastic</span><span id="cMat">₹50</span></div>
+    <div class="line"><span>Electricity</span><span id="cEle">₹3</span></div>
+    <div class="line"><span>Printer wear</span><span id="cMac">₹20</span></div>
+    <div class="line"><span>Failure buffer</span><span id="cFail">₹7</span></div>
+    <div class="line"><span>Finishing time</span><span id="cLab">₹17</span></div>
+    <div class="line"><span>Packaging</span><span id="cPack">₹20</span></div>
+    <div class="total"><span>Total cost</span><span id="cTot">₹117</span></div>
   </div>
 
   <div class="tiers">
     <div class="tier">
-      <div class="name">Hobbyist / Friend</div>
-      <div class="amt">₹<span id="price0">0</span></div>
-      <div class="why">Base Cost + 0%</div>
-      <div class="profit">Profit: ₹0</div>
+      <div class="name">Wholesale</div>
+      <div class="why">Shops and resellers, 10+ pieces</div>
+      <div class="amt" id="tW">₹230</div>
+      <div class="profit" id="pW">Profit ₹113 per piece</div>
     </div>
     <div class="tier hot">
-      <div class="name">Standard Service</div>
-      <div class="amt">₹<span id="price50">0</span></div>
-      <div class="why">Base Cost + 50%</div>
-      <div class="profit">Profit: ₹<span id="profit50">0</span></div>
+      <div class="name">Retail</div>
+      <div class="why">Instagram, WhatsApp, direct customers</div>
+      <div class="amt" id="tR">₹359</div>
+      <div class="profit" id="pR">Profit ₹242 per piece</div>
     </div>
     <div class="tier">
-      <div class="name">Commercial / Premium</div>
-      <div class="amt">₹<span id="price100">0</span></div>
-      <div class="why">Base Cost + 100%</div>
-      <div class="profit">Profit: ₹<span id="profit100">0</span></div>
+      <div class="name">Custom</div>
+      <div class="why">With a name, photo or one-off design</div>
+      <div class="amt" id="tC">₹479</div>
+      <div class="profit" id="pC">Profit ₹362 per piece</div>
     </div>
   </div>
 
-  <div class="note"><b>Note:</b> Costs are estimates. Adjust settings as needed for your specific printer and rates.</div>
-
+  <p class="note">Sell <b id="be">104 pieces</b> at retail and the printer has paid for itself.</p>
+  <p class="note">Never sell below wholesale. Below that, you're the one working for free.</p>
 </div>
 
 <script>
-  function calc() {
-    const v = id => parseFloat(document.getElementById(id).value) || 0;
+  const $ = id => document.getElementById(id);
+  const num = id => { const v = parseFloat($(id).value); return isNaN(v) ? 0 : v; };
+  const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
+  const retailRound = n => Math.max(9, Math.ceil(n / 10) * 10 - 1);
+  const tenRound = n => Math.max(10, Math.round(n / 10) * 10);
 
-    const t = v('printTime');
-    const fUsed = v('filamentUsed');
-    const mCost = v('materialCost');
-    const pCost = v('powerCost');
-    
-    const mchCost = v('machineCost');
-    const life = v('lifespanHours');
-    const watts = v('powerConsumption');
-    const lRate = v('laborCost');
-    const lMins = v('laborTime');
-    const fail = v('failureRate');
+  function calc(){
+    const g = num('g'), h = num('h'), f = num('f'), p = num('p'), m = num('m');
+    const pc = num('pc'), pl = Math.max(1, num('pl')), w = num('w'), u = num('u');
+    const fl = num('fl'), lr = num('lr');
 
-    const mat = (fUsed / 1000) * mCost * (1 + (fail / 100));
-    const wear = (mchCost / life) * t;
-    const pwr = (watts / 1000) * t * pCost;
-    const lab = lRate * (lMins / 60);
+    const mat  = g * f / 1000;
+    const ele  = h * w / 1000 * u;
+    const mac  = h * pc / pl;
+    const fail = (mat + ele + mac) * fl / 100;
+    const lab  = m / 60 * lr;
+    const cost = mat + ele + mac + fail + lab + p;
 
-    const base = mat + wear + pwr + lab;
+    const tW = tenRound(cost * 2);
+    const tR = retailRound(cost * 3);
+    const tC = retailRound(cost * 4);
 
-    document.getElementById('outMaterial').innerText = '₹' + mat.toFixed(2);
-    document.getElementById('outWear').innerText = '₹' + wear.toFixed(2);
-    document.getElementById('outPower').innerText = '₹' + pwr.toFixed(2);
-    document.getElementById('outLabor').innerText = '₹' + lab.toFixed(2);
-    document.getElementById('outBase').innerText = '₹' + base.toFixed(2);
-    
-    document.getElementById('baseCost').innerText = Math.ceil(base);
+    $('cMat').textContent = inr(mat);
+    $('cEle').textContent = inr(ele);
+    $('cMac').textContent = inr(mac);
+    $('cFail').textContent = inr(fail);
+    $('cLab').textContent = inr(lab);
+    $('cPack').textContent = inr(p);
+    $('cTot').textContent = inr(cost);
 
-    document.getElementById('price0').innerText = Math.ceil(base);
-    
-    const p50 = base * 1.5;
-    document.getElementById('price50').innerText = Math.ceil(p50);
-    document.getElementById('profit50').innerText = Math.ceil(p50 - base);
+    $('bigPrice').textContent = inr(tR);
+    $('bigCost').textContent = inr(cost);
+    $('bigProfit').textContent = inr(tR - cost);
 
-    const p100 = base * 2.0;
-    document.getElementById('price100').innerText = Math.ceil(p100);
-    document.getElementById('profit100').innerText = Math.ceil(p100 - base);
+    $('tW').textContent = inr(tW); $('pW').textContent = 'Profit ' + inr(tW - cost) + ' per piece';
+    $('tR').textContent = inr(tR); $('pR').textContent = 'Profit ' + inr(tR - cost) + ' per piece';
+    $('tC').textContent = inr(tC); $('pC').textContent = 'Profit ' + inr(tC - cost) + ' per piece';
+
+    const margin = tR - cost;
+    $('be').textContent = margin > 0 && pc > 0 ? Math.ceil(pc / margin).toLocaleString('en-IN') + ' pieces' : '—';
   }
-
   document.querySelectorAll('input').forEach(i => i.addEventListener('input', calc));
   calc();
 </script>
-
-
-</body></html>
+</body>
+</html>
